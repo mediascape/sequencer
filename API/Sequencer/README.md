@@ -23,7 +23,6 @@
 - axis.js : datastructure for efficient ordering and lookup of Intervals
 - sortedarraybinary.js : datastructure : efficient ordering and lookup of floats
 - multimap.js : datastructure : (key,value) map supporting multiple values on single key
-- motionutils.js : utility methods for correct time calculations
 - timeoututils.js : timeout mechanism, improving setTimeout() by wrapping it.
 
 ## Sequencer Module
