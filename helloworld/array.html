@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+    Copyright 2015 Norut Northern Research Institute
+    Author : Ingar Mæhlum Arntzen
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <!-- Third party : RequireJs-->
+    <script data-main="app" src="../API/lib/require.js"></script>
+    <script type="text/javascript">
+    require(['./app'], function (app) {
+        require(['js/timeddata', 'sequencer/sequencer'], 
+            function (timeddata, seq) { 
+            app(function (motion) {
+
+                // Create sequencer
+                var s = new seq.Sequencer(motion);
+                var Interval = seq.Interval;
+                var array = timeddata.array;
+
+                // Load array indexes as keys into Sequencer
+                for (var i=0; i<array.length; i++) {
+                    var obj = array[i];
+                    s.addCue(i.toString(), new Interval(obj.start, obj.end));
+                }
+             
+                // Set up UI
+                var elem = document.getElementById("viewer");
+                s.on("enter", function (e) {
+                    elem.innerHTML = JSON.stringify(array[parseInt(e.key)]);
+                });
+                s.on("exit", function (e) {
+                    elem.innerHTML = "";
+                });
+
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <h1>Array Viewer</h1>
+    <p>
+        Use motion controls <a href="ctrl.html" target="_blank">ctrl.html</a> in an other (or multiple) browser tabs/windows (also on other computers) to <i>move</i> through the timed data (i.e. playback). The page may be reloaded at any time. Also open the page on multiple devices to verify multi-device synchronization. 
+    </p>
+    <div id="viewer"></div>
+</body>
