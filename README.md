@@ -1,4 +1,4 @@
-# sequencer
+# Sequencer
 
 In this folder you will find the Sequencer library developed for [MediaScape project](http://mediascapeproject.eu/).
 
@@ -31,7 +31,7 @@ The generic structure of mediascape repositories is:
 ### License
 [Top][]
 
-Copyright 2015 Norut.
+Copyright 2015 Norut Northern Research Institute.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
