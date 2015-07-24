@@ -34,7 +34,7 @@ Timed data is data associated with an interval or a point, for example (23.2,24.
 ### Dependencies
 [Top][]
 
-The Sequencer implementation depends on the MediaScape Shared Motion API as timing source. Shared Motions are implemented and provided by Motion Corporation http://motioncorporation.com. Shared Motion is currently prepared for standardization by W3C Multi-device Timing Community Group https://www.w3.org/community/webtiming/.  Current demoes are set up to use a single, public motion. For further experimentation with the Sequencer, please create new motions at Motion Corporation http://dev.motioncorporation.com.
+The Sequencer implementation depends on the MediaScape Shared Motion API as timing source. Shared Motions are implemented and provided by Motion Corporation http://motioncorporation.com. Shared Motion is currently prepared for standardization by W3C Multi-device Timing Community Group https://www.w3.org/community/webtiming/.  Current demoes are set up to use a single, public motion. For further experimentation with the Sequencer, please create a developer account and create your motions at Motion Corporation http://dev.motioncorporation.com.
 
 Sequencer and Shared Motion are vanilla JavaScript and should run in every modern browser.
 
