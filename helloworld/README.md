@@ -15,6 +15,7 @@
    	limitations under the License.
 -->
 
+# Demo Documentation
 
 These are demoes for the Sequencer.
 
@@ -25,6 +26,9 @@ Open at least ctrl.html and <X>.html in two different tabs/windows.
 Open <X>.html in multiple tabs/windows in order to appreciate precise sync. 
 
 You may also verify multi-device sync by opening links on different computers. 
+
+Note that all demoes uses a single timing source/motion. This motion is shared globally, so other people might also be playing with the demo when you do. If you would like to explore the Sequencer using your own motions, you may do so by creating a developer account at Motion Corporation http://motioncorporation.com.
+
 
 Resources
 * js/viewer.js - simplistic viewer used by most demoes to update DOM based on timed sequencer events.
