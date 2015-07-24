@@ -24,6 +24,7 @@
 - sortedarraybinary.js : datastructure : efficient ordering and lookup of floats
 - multimap.js : datastructure : (key,value) map supporting multiple values on single key
 - timeoututils.js : timeout mechanism, improving setTimeout() by wrapping it.
+- arraysequencer.js : sequencer specializiation for timed data in static array
 
 ## Sequencer Module
 The sequencer module defines a Sequencer object and an Interval object. The Sequencer works on Intervals. Additionally, an inherit function is available, allowing the Sequencer to be specialized through inheritance.
