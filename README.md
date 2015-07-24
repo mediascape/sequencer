@@ -20,7 +20,7 @@
 In this folder you will find the Sequencer library developed for [MediaScape project](http://mediascapeproject.eu/).
 
 ## Navigation
-[Goals][] | [Structure][] | [Authors][] | [License][]
+[Goals][] | [Structure][] | [Documentation][] | [Authors][] | [License][]
 
 ### Goals
 [Top][]
@@ -40,6 +40,11 @@ The generic structure of mediascape repositories is:
   * complements: additional elements for extra and optional features.
   * helloworld: minimal sample code.
 
+### Documentation
+[Top][]
+
+Please find detailed documentation in [API Doc](API/Sequencer/README.md) and [DEMO Doc](helloworld/README.md)
+
 ### Authors
 [Top][]
 
@@ -57,5 +62,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 [Top]: #navigation
 [Goals]: #goals
 [Structure]: #structure
+[Documentation]: #documentation
 [Authors]: #authors
 [License]: #license
