@@ -613,8 +613,8 @@ define(['./timeoututils', './interval', './axis'],
 			and 
 			Entering open intervals <
 	    */
-	    var isMoving = isMoving(initVector);
-	    if (isMoving) {
+	    var _isMoving = isMoving(initVector);
+	    if (_isMoving) {
 	    	var nowPos = nowVector[P];
 		    var points = this._axis.lookupByInterval(new Interval(nowPos, nowPos, true, true));
 		    points.forEach(function (pointInfo) {
@@ -804,8 +804,8 @@ define(['./timeoututils', './interval', './axis'],
 			if motion is not moving, the schedule may not have been advanced in a while
 			simply advance it - to empty it - as an effective way of invalidation
 		*/
-		var isMoving = isMoving(nowVector);
-		if (!isMoving) {
+		var _isMoving = isMoving(nowVector);
+		if (!_isMoving) {
 			// not moving - not sure this is necessary
 			this._schedule.advance(now);
 		} else {
@@ -832,7 +832,7 @@ define(['./timeoututils', './interval', './axis'],
 			    */
 
 			    // Reload only required if the msv is moving
-				if (isMoving) {
+				if (_isMoving) {
 					/*
 				      Load interval endpoints into schedule			      
 				      The interval has one or two endpoints that might or might not be
@@ -892,8 +892,8 @@ define(['./timeoututils', './interval', './axis'],
 	    // process tasks (empty due tasks from schedule)
         this._processScheduleEvents(now, this._schedule.pop(now));
         // advance schedule window
-        var isMoving = isMoving(this._motion.getInfo().vector);
-        if (isMoving && this._schedule.isExpired(now)) {		
+        var _isMoving = isMoving(this._motion.getInfo().vector);
+        if (_isMoving && this._schedule.isExpired(now)) {		
 			now = this._schedule.getTimeInterval().high;
             this._schedule.advance(now);
             this._load(now);
@@ -901,7 +901,7 @@ define(['./timeoututils', './interval', './axis'],
             this._processScheduleEvents(now, this._schedule.pop(now));
 	    }
         // set timeout if moving
-        if (isMoving) {
+        if (_isMoving) {
         	var secAnchor = secClock();	
 			var secDelay = this._schedule.getDelayNextTs(secAnchor); // seconds
 			var self = this;
@@ -930,8 +930,8 @@ define(['./timeoututils', './interval', './axis'],
 	*/
 
 	Sequencer.prototype._load = function (now, givenPoints) {
-		var isMoving = isMoving(this._motion.getInfo().vector);
-	    if (!isMoving) {
+		var _isMoving = isMoving(this._motion.getInfo().vector);
+	    if (!_isMoving) {
 			return;
 	    }
 	    /* 
@@ -1187,18 +1187,18 @@ define(['./timeoututils', './interval', './axis'],
 		this._callbacks[what].forEach(function(h) {
 			if (handler === undefined) {
 	      		// all handlers to be invoked, except those with pending immeditate
-	      		if (h._immediatePending) {
+	      		if (h["_immediatePending_" + what]) {
 	      			return;
 	      		}
 	      	} else {
 	      		// only given handler to be called
-	      		if (h === handler) handler._immediatePending = false;
+	      		if (h === handler) handler["_immediatePending_" + what] = false;
 	      		else {
 	      			return;
 	      		}
 	      	}
 	        try {
-	          h.call(h._ctx, e);
+	          h.call(h["_ctx_" + what], e);
 	        } catch (err) {
 	          console.log("Error in " + what + ": " + h + ": " + err);
 	        }
@@ -1292,17 +1292,17 @@ define(['./timeoututils', './interval', './axis'],
     	var index = this._callbacks[what].indexOf(handler);
         if (index === -1) {
         	// register handler
-        	handler._ctx = ctx || this;
+        	handler["_ctx_" + what] = ctx || this;
         	this._callbacks[what].push(handler);
         	if (what === "events" || what === "enter") {
 		    	// flag handler
-		    	handler._immediatePending = true;
+		    	handler["_immediatePending_" + what] = true;
 		    	// do immediate callback
 		    	var self = this;
 		    	setTimeout(function () {
 		    		var immediateDone = self._initHandler(handler);
 		    		if (!immediateDone) {
-		    			handler._immediatePending = false;
+		    			handler["_immediatePending_" + what] = false;
 		    		}
 		    	}, 0);
 		    }
