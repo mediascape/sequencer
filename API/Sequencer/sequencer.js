@@ -15,7 +15,7 @@
   GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public License
-  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  along with the Sequencer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 if (typeof define !== 'function') {var define = require('amdefine')(module);}
@@ -27,7 +27,19 @@ define(['./timeoututils', './interval', './axis'],
 	'use strict';
 
 	// UTILITY
-	
+
+	// UNIQUE ID GENERATOR 
+	var id = (function(length) {
+	 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    return function (len) { // key length
+	    	len = len || length; 
+	    	var text = "";
+		    for( var i=0; i < len; i++ )
+	    	    text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	return text;
+		};
+	})(10); // default key length
+
 	// Local time source (seconds)
     var secClock = function () {
 		return new Date().getTime()/1000.0;
@@ -533,6 +545,7 @@ define(['./timeoututils', './interval', './axis'],
 			change: [],
 			changes: [] // for data that has changed on active objects (no enter-exit event)
 		}; 
+		this.ID = id(4);
 			
 		// initialise
 		var self = this;
@@ -1190,18 +1203,18 @@ define(['./timeoututils', './interval', './axis'],
 		this._callbacks[what].forEach(function(h) {
 			if (handler === undefined) {
 	      		// all handlers to be invoked, except those with pending immeditate
-	      		if (h["_immediatePending_" + what]) {
+	      		if (h["_immediatePending_" + what + this.ID]) {
 	      			return;
 	      		}
 	      	} else {
 	      		// only given handler to be called
-	      		if (h === handler) handler["_immediatePending_" + what] = false;
+	      		if (h === handler) handler["_immediatePending_" + what + this.ID] = false;
 	      		else {
 	      			return;
 	      		}
 	      	}
 	        try {
-	          h.call(h["_ctx_" + what], e);
+	          h.call(h["_ctx_" + what + this.ID], e);
 	        } catch (err) {
 	          console.log("Error in " + what + ": " + h + ": " + err);
 	        }
@@ -1295,17 +1308,17 @@ define(['./timeoututils', './interval', './axis'],
     	var index = this._callbacks[what].indexOf(handler);
         if (index === -1) {
         	// register handler
-        	handler["_ctx_" + what] = ctx || this;
+        	handler["_ctx_" + what + this.ID] = ctx || this;
         	this._callbacks[what].push(handler);
         	if (what === "events" || what === "enter") {
 		    	// flag handler
-		    	handler["_immediatePending_" + what] = true;
+		    	handler["_immediatePending_" + what + this.ID] = true;
 		    	// do immediate callback
 		    	var self = this;
 		    	setTimeout(function () {
 		    		var immediateDone = self._initHandler(handler);
 		    		if (!immediateDone) {
-		    			handler["_immediatePending_" + what] = false;
+		    			handler["_immediatePending_" + what + this.ID] = false;
 		    		}
 		    	}, 0);
 		    }

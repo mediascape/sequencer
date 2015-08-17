@@ -1,6 +1,6 @@
 <!--
-	Copyright 2015 Norut Northern Research Institute
-	Author : Ingar Mæhlum Arntzen
+  Copyright 2015 Norut Northern Research Institute
+  Author : Ingar Mæhlum Arntzen
 
   This file is part of the Sequencer module.
 
@@ -15,8 +15,9 @@
   GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public License
-  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  along with the Sequencer.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 
 # Sequencer
 
