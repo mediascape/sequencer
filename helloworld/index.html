@@ -24,9 +24,11 @@
 <head>
 <script data-main="app" src="../API/lib/require.js"></script>
 <script type="text/javascript">
+var m;
 	require(['./app'], function (app) {
 		require(['sequencer/sequencer'], function (seq) {        
 	        app(function (motion) {           
+              m = motion;
                 // create sequencer
             	var s = new seq.Sequencer(motion);
                 var Interval = seq.Interval;
@@ -35,7 +37,6 @@
                     .addCue("zero", new Interval(0.0, 9.9))
                     .addCue("one", new Interval(0.5, 2.1))
                     .addCue("two", new Interval(4.4, 5.6))
-                    .addCue("three", new Interval(3.4, 2.2))
                     .addCue("four", new Interval(3.3, 3.3))
                     .addCue("five", new Interval(-Infinity, Infinity))
                     .addCue("seven", new Interval(0))

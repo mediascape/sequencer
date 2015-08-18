@@ -548,10 +548,7 @@ define(['./timeoututils', './interval', './axis'],
 		this.ID = id(4);
 			
 		// initialise
-		var self = this;
-		this._motionCallbackWrapper = function (e) {self._onMotionUpdate(e);};
-		this._motion.on("change", this._motionCallbackWrapper);
-
+		this._motion.on("change", this._onMotionUpdate, this);
 		// Allow subclass to load data into the sequencer
 		this.loadData();
 
@@ -725,7 +722,6 @@ define(['./timeoututils', './interval', './axis'],
 	 */
 
 	Sequencer.prototype.updateAll = function(argList) {
-			
 		if (this._motion.readyState === this._motion.STATE["CLOSED"]) 
 			throw new SequencerError("Update failed: Msv closed");
 
@@ -1432,7 +1428,7 @@ define(['./timeoututils', './interval', './axis'],
 
 	// shutdown
 	Sequencer.prototype.close = function () {
-	    this._motion.off("change", this._motionCallbackWrapper);
+	    this._motion.off("change", this._onMotionUpdate);
 	    if (this.to !== null) {
 			this.to.cancel();
 			this.to = null;		
